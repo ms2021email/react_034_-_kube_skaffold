@@ -276,6 +276,8 @@ $ minikube stop
 $ minikube delete
 🔥  Deleting "minikube" in podman ...
 🔥  Deleting container "minikube" ...
+🔥  Removing /home/geiszler/.minikube/machines/minikube ...
+💀  Removed all traces of the "minikube" cluster.
 
 # Delete all of the running containers
 docker rm $(docker ps -a -q)
@@ -286,5 +288,119 @@ minikube addons enable ingress
 
 #cd to directory with skaffold file
 skaffold dev
+
+--------------
+
+NOTE: If things are configured correctly then one should see output similar to the following.
+- The output also includes adding two posts and two comments.
+- The output also includes what one can expect if Ctrl-C is used on "skaffold dev"
+
+Deployments stabilized in 1 minute 39.816 seconds
+Press Ctrl+C to exit
+[client] 
+[client] > client@0.1.0 start
+[client] > react-scripts start
+[posts] 
+[event-bus] 
+[client] 
+[client] ℹ ｢wds｣: Project is running at http://172.17.0.5/
+[client] ℹ ｢wds｣: webpack output is served from 
+[client] ℹ ｢wds｣: Content not from webpack is served from /app/public
+[client] ℹ ｢wds｣: 404s will fallback to /
+[moderation] 
+[moderation] > moderation@1.0.0 start
+[moderation] > nodemon index.js
+[moderation] 
+[moderation] [nodemon] 2.0.7
+[moderation] [nodemon] to restart at any time, enter `rs`
+[moderation] [nodemon] watching path(s): *.*
+[moderation] [nodemon] watching extensions: js,mjs,json
+[moderation] [nodemon] starting `node index.js`
+[query] 
+[query] > query@1.0.0 start
+[client] Starting the development server...
+[client] 
+[posts] > posts@1.0.0 start
+[posts] > nodemon index.js
+[posts] 
+[posts] [nodemon] 2.0.7
+[query] > nodemon index.js
+[query] 
+[query] [nodemon] 2.0.7
+[query] [nodemon] to restart at any time, enter `rs`
+[query] [nodemon] watching path(s): *.*
+[posts] [nodemon] to restart at any time, enter `rs`
+[query] [nodemon] watching extensions: js,mjs,json
+[posts] [nodemon] watching path(s): *.*
+[query] [nodemon] starting `node index.js`
+[moderation] Listening on 4003
+[query] Listening on 4002
+[posts] [nodemon] watching extensions: js,mjs,json
+[posts] [nodemon] starting `node index.js`
+[posts] v55
+[event-bus] > event-bus@1.0.0 start
+[posts] Listening on 4000
+[comments] 
+[comments] > comments@1.0.0 start
+[comments] > nodemon index.js
+[comments] 
+[event-bus] > nodemon index.js
+[comments] [nodemon] 2.0.7
+[comments] [nodemon] to restart at any time, enter `rs`
+[event-bus] 
+[comments] [nodemon] watching path(s): *.*
+[comments] [nodemon] watching extensions: js,mjs,json
+[comments] [nodemon] starting `node index.js`
+[comments] Listening on 4001
+[event-bus] [nodemon] 2.0.7
+[event-bus] [nodemon] to restart at any time, enter `rs`
+[event-bus] [nodemon] watching path(s): *.*
+[event-bus] [nodemon] watching extensions: js,mjs,json
+[event-bus] [nodemon] starting `node index.js`
+[event-bus] Listening on 4005
+[client] Compiled successfully!
+[client] 
+[client] You can now view client in the browser.
+[client] 
+[client]   Local:            http://localhost:3000
+[client]   On Your Network:  http://172.17.0.5:3000
+[client] 
+[client] Note that the development build is not optimized.
+[client] To create a production build, use npm run build.
+[client] 
+Watching for changes...
+[posts] Received Event PostCreated
+[comments] Event Received: PostCreated
+[posts] Received Event PostCreated
+[comments] Event Received: PostCreated
+[posts] Received Event CommentCreated
+[comments] Event Received: CommentCreated
+[comments] Event Received: CommentModerated
+[posts] Received Event CommentModerated
+[comments] Event Received: CommentUpdated
+[posts] Received Event CommentUpdated
+[posts] Received Event CommentCreated
+[comments] Event Received: CommentCreated
+[posts] Received Event CommentModerated
+[comments] Event Received: CommentModerated
+[posts] Received Event CommentUpdated
+[comments] Event Received: CommentUpdated
+^CCleaning up...
+ - deployment.apps "client-depl" deleted
+ - service "client-srv" deleted
+ - deployment.apps "comments-depl" deleted
+ - service "comments-srv" deleted
+ - deployment.apps "event-bus-depl" deleted
+ - service "event-bus-srv" deleted
+ - Warning: networking.k8s.io/v1beta1 Ingress is deprecated in v1.19+, unavailable in v1.22+; use networking.k8s.io/v1 Ingress
+ - ingress.networking.k8s.io "ingress-srv" deleted
+ - deployment.apps "hello-world" deleted
+ - deployment.apps "moderation-depl" deleted
+ - service "moderation-srv" deleted
+ - deployment.apps "posts-depl" deleted
+ - service "posts-clusterip-srv" deleted
+ - service "posts-srv" deleted
+ - deployment.apps "query-depl" deleted
+ - service "query-srv" deleted
 
 --------------
