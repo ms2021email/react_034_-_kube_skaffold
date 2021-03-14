@@ -263,3 +263,28 @@ NOTE: If one does not use "skaffold dev", then there are manual steps for each p
 PS: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 
+--------------
+
+Note: If one was using minikube without "skaffold dev", then do the following to use "skaffold dev"
+
+$ minikube stop
+✋  Stopping node "minikube"  ...
+🛑  Powering off "minikube" via SSH ...
+✋  Stopping node "minikube"  ...
+🛑  1 nodes stopped.
+
+$ minikube delete
+🔥  Deleting "minikube" in podman ...
+🔥  Deleting container "minikube" ...
+
+# Delete all of the running containers
+docker rm $(docker ps -a -q)
+
+minikube start --driver podman
+
+minikube addons enable ingress
+
+#cd to directory with skaffold file
+skaffold dev
+
+--------------
